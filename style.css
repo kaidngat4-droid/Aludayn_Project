@@ -1,0 +1,61 @@
+ {
+    font-family: 'Cairo', sans-serif;
+    background-image: url('images/background.jpg');
+    background-size: cover;
+    background-attachment: fixed;
+    background-repeat: no-repeat;
+    background-position: center center;
+    margin:0;
+    padding-bottom:40px;
+    color:#333;
+}
+
+.header {
+    background:white;
+    padding:20px;
+    text-align:center;
+    border-bottom:6px solid #2c5282;
+    border-radius:0 0 30px 30px;
+    box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);
+}
+.header img {width:100px;height:auto;margin-bottom:10px;}
+.header h1{font-size:18px;margin:5px 0;color:#333;}
+.header h2{font-size:16px;margin:0;color:#2c5282;}
+
+.container{padding:15px;max-width:600px;margin:auto;}
+
+.section-title{
+    background:linear-gradient(90deg,#2c5282,#2b6cb0);
+    color:white;padding:12px 20px;
+    border-radius:15px;margin:25px 0 15px 0;
+    font-weight:700;
+    display:flex;align-items:center;gap:10px;
+}
+
+.card{
+    background:white;border-radius:20px;padding:15px;margin-bottom:15px;
+    box-shadow:0 10px 15px -3px rgba(0,0,0,0.1);
+    border:1px solid rgba(0,0,0,0.05);
+}
+
+table{width:100%;border-collapse:collapse;}
+td{padding:12px 8px;border-bottom:1px solid #edf2f7;font-size:14px;color:#4a5568;}
+td:last-child{text-align:left;}
+
+input[type="number"], input[type="text"], input[type="month"]{
+    width:60px;padding:6px;border:2px solid #e2e8f0;
+    border-radius:8px;text-align:center;font-weight:bold;color:#2c5282;outline:none;
+}
+input[type="text"], input[type="month"]{
+    width:100%;
+}
+input:focus{border-color:#2b6cb0;background:#ebf8ff;}
+input.small{width:50px;}
+
+.btn, .btn-whatsapp{
+    border:none;border-radius:15px;font-size:16px;font-weight:700;
+    padding:12px 20px;cursor:pointer;margin-top:15px;
+}
+
+.btn{background:linear-gradient(135deg,#2c5282,#2b6cb0);color:white;}
+.btn-whatsapp{background:linear-gradient(135deg,#25d366 0%,#128c7e 100%);color:white;width:100%;padding:18px;font-size:18px;font-weight:900;display:flex;align-items:center;justify-content:center;gap:10px;box-shadow:0 10px 20px rgba(37,211,102,0.3);}
