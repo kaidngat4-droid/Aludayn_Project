@@ -1,79 +1,103 @@
-// ===== شاشة الرمز الشهري =====
+    // ===== شاشة الرمز الشهري =====
 function checkCode() {
   const code = document.getElementById("monthCode").value;
+
   if (!code) {
     alert("يرجى إدخال رمز الشهر");
     return;
   }
-  document.getElementById("lockScreen").style.display = "none";
-  document.getElementById("appContent").style.display = "block";
+
+  const now = new Date();
+  const correctCode =
+    now.getFullYear().toString() +
+    String(now.getMonth() + 1).padStart(2, "0");
+
+  if (code === correctCode) {
+    document.getElementById("lockScreen").style.display = "none";
+    document.getElementById("appContent").style.display = "block";
+  } else {
+    alert("❌ رمز الشهر غير صحيح");
+  }
 }
 
-// ===== حفظ PDF مع تحقق كامل =====
-function savePDF() {
+// ===== التحقق من القيم =====
+function validateForm() {
+  let valid = true;
+  const inputs = document.querySelectorAll("input[type='number']");
 
-  // إزالة أخطاء سابقة
-  document.querySelectorAll("input").forEach(i => i.classList.remove("error"));
+  inputs.forEach(input => {
+    input.classList.remove("error");
 
-  let hasError = false;
+    if (input.value === "") {
+      input.classList.add("error");
+      valid = false;
+    }
 
-  const facility = document.getElementById("facilityName");
-  const worker = document.getElementById("workerName");
-  const month = document.getElementById("reportMonth");
-
-  // تحقق من الحقول الأساسية
-  [facility, worker, month].forEach(f => {
-    if (!f.value.trim()) {
-      f.classList.add("error");
-      hasError = true;
+    if (Number(input.value) < 0) {
+      input.classList.add("error");
+      valid = false;
     }
   });
 
-  // منع الأرقام السالبة أو الفارغة
-  document.querySelectorAll('input[type="number"]').forEach(i => {
-    if (i.value === "" || parseInt(i.value) < 0) {
-      i.classList.add("error");
-      hasError = true;
-    }
-  });
-
-  // تطابق الذكور + الإناث مع الأعمار
-  const male = parseInt(document.getElementById("maleCount").value || 0);
-  const female = parseInt(document.getElementById("femaleCount").value || 0);
-  const totalGender = male + female;
-
-  let totalAge = 0;
-  document.querySelectorAll(".ageCount").forEach(i => {
-    totalAge += parseInt(i.value || 0);
-  });
-
-  if (totalGender !== totalAge) {
-    alert("⚠️ مجموع الذكور والإناث يجب أن يساوي مجموع الحالات حسب العمر");
-    document.getElementById("maleCount").classList.add("error");
-    document.getElementById("femaleCount").classList.add("error");
-    document.querySelectorAll(".ageCount").forEach(i => i.classList.add("error"));
-    return;
-  }
-
-  if (hasError) {
+  if (!valid) {
     alert("⚠️ يرجى تصحيح الحقول المظللة باللون الأحمر");
-    return;
   }
 
-  // إنشاء PDF
-  const element = document.getElementById("healthForm");
-
-  html2pdf().set({
-    margin: 10,
-    filename: `تقرير_${facility.value}_${month.value}.pdf`,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
-  }).from(element).save();
+  return valid;
 }
 
-// ===== واتساب =====
+// ===== حفظ PDF =====
+function savePDF() {
+  if (!validateForm()) return;
+
+  const { jsPDF } = window.jspdf;
+  const doc = new jsPDF("p", "mm", "a4");
+
+  doc.setFontSize(14);
+  doc.text("📊 تقرير الرعاية التكاملية - مديرية العدين", 10, 15);
+  doc.setFontSize(11);
+  doc.text("التاريخ: " + new Date().toLocaleDateString("ar-YE"), 10, 25);
+
+  let y = 35;
+  const inputs = document.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    if (input.value) {
+      let label =
+        input.closest("tr")?.cells[0]?.innerText ||
+        input.previousSibling?.innerText ||
+        "";
+
+      if (label) {
+        doc.text(`${label}: ${input.value}`, 10, y);
+        y += 7;
+      }
+    }
+  });
+
+  doc.save("تقرير_الرعاية_التكاملية.pdf");
+}
+
+// ===== إرسال واتساب =====
 function sendWhatsApp() {
-  const text = encodeURIComponent("تم إعداد تقرير الرعاية التكاملية – مديرية العدين");
-  window.open(`https://wa.me/?text=${text}`, "_blank");
+  if (!validateForm()) return;
+
+  let msg = "*📊 تقرير الرعاية التكاملية - مديرية العدين*\n";
+  msg += "*التاريخ:* " + new Date().toLocaleDateString("ar-YE") + "\n\n";
+
+  const inputs = document.querySelectorAll("input");
+
+  inputs.forEach(input => {
+    if (input.value) {
+      let label = input.closest("tr")?.cells[0]?.innerText || "";
+      if (label) {
+        msg += `▫️ *${label}:* ${input.value}\n`;
+      }
+    }
+  });
+
+  window.open(
+    `https://wa.me/967776572227?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
 }
