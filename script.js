@@ -3,7 +3,7 @@ function checkCode() {
   const code = document.getElementById("monthCode").value;
 
   if (!code) {
-    alert("يرجى إدخال رمز الشهر");
+    alert("12026");
     return;
   }
 
