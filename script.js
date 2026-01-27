@@ -1,26 +1,30 @@
-    // ===== شاشة الرمز الشهري =====
+/*************************************************
+ * إعدادات عامة (تُعدّل من هنا فقط)
+ *************************************************/
+const MONTH_CODE = "122026"; // 🔐 رمز الدخول الشهري
+
+/*************************************************
+ * شاشة الرمز الشهري
+ *************************************************/
 function checkCode() {
   const code = document.getElementById("monthCode").value;
 
   if (!code) {
-    alert("012026");
+    alert("يرجى إدخال رمز الشهر");
     return;
   }
 
-  const now = new Date();
-  const correctCode =
-    now.getFullYear().toString() +
-    String(now.getMonth() + 1).padStart(2, "0");
-
-  if (code === correctCode) {
+  if (code === MONTH_CODE) {
     document.getElementById("lockScreen").style.display = "none";
     document.getElementById("appContent").style.display = "block";
   } else {
-    alert("❌ رمز الشهر غير صحيح");
+    alert("❌ رمز الدخول غير صحيح");
   }
 }
 
-// ===== التحقق من القيم =====
+/*************************************************
+ * التحقق من القيم المدخلة
+ *************************************************/
 function validateForm() {
   let valid = true;
   const inputs = document.querySelectorAll("input[type='number']");
@@ -28,12 +32,7 @@ function validateForm() {
   inputs.forEach(input => {
     input.classList.remove("error");
 
-    if (input.value === "") {
-      input.classList.add("error");
-      valid = false;
-    }
-
-    if (Number(input.value) < 0) {
+    if (input.value === "" || Number(input.value) < 0) {
       input.classList.add("error");
       valid = false;
     }
@@ -46,7 +45,9 @@ function validateForm() {
   return valid;
 }
 
-// ===== حفظ PDF =====
+/*************************************************
+ * حفظ التقرير PDF
+ *************************************************/
 function savePDF() {
   if (!validateForm()) return;
 
@@ -56,17 +57,19 @@ function savePDF() {
   doc.setFontSize(14);
   doc.text("📊 تقرير الرعاية التكاملية - مديرية العدين", 10, 15);
   doc.setFontSize(11);
-  doc.text("التاريخ: " + new Date().toLocaleDateString("ar-YE"), 10, 25);
+  doc.text(
+    "التاريخ: " + new Date().toLocaleDateString("ar-YE"),
+    10,
+    25
+  );
 
   let y = 35;
   const inputs = document.querySelectorAll("input");
 
   inputs.forEach(input => {
     if (input.value) {
-      let label =
-        input.closest("tr")?.cells[0]?.innerText ||
-        input.previousSibling?.innerText ||
-        "";
+      const label =
+        input.closest("tr")?.cells[0]?.innerText || "";
 
       if (label) {
         doc.text(`${label}: ${input.value}`, 10, y);
@@ -78,18 +81,24 @@ function savePDF() {
   doc.save("تقرير_الرعاية_التكاملية.pdf");
 }
 
-// ===== إرسال واتساب =====
+/*************************************************
+ * إرسال التقرير عبر واتساب
+ *************************************************/
 function sendWhatsApp() {
   if (!validateForm()) return;
 
   let msg = "*📊 تقرير الرعاية التكاملية - مديرية العدين*\n";
-  msg += "*التاريخ:* " + new Date().toLocaleDateString("ar-YE") + "\n\n";
+  msg +=
+    "*التاريخ:* " +
+    new Date().toLocaleDateString("ar-YE") +
+    "\n\n";
 
   const inputs = document.querySelectorAll("input");
 
   inputs.forEach(input => {
     if (input.value) {
-      let label = input.closest("tr")?.cells[0]?.innerText || "";
+      const label =
+        input.closest("tr")?.cells[0]?.innerText || "";
       if (label) {
         msg += `▫️ *${label}:* ${input.value}\n`;
       }
