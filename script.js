@@ -3,7 +3,7 @@ function checkCode() {
   const code = document.getElementById("monthCode").value;
 
   if (!code) {
-    alert("12026");
+    alert("012026");
     return;
   }
 
