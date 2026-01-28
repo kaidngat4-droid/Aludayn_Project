@@ -14,52 +14,22 @@ function checkCode() {
   }
 }
 
-// ===== التحقق من القيم =====
+// ===== التحقق من القيم قبل الحفظ =====
 function validateForm() {
   let valid = true;
-  const inputs = document.querySelectorAll("input[type='number'], input[type='text'], input[type='month']");
+  const inputs = document.querySelectorAll("#healthForm input");
 
-  // إزالة أي تلوين سابق
   inputs.forEach(input => input.classList.remove("error"));
 
-  // التحقق من الحقول الأساسية
   inputs.forEach(input => {
     const val = input.value.trim();
-
-    // الحقول الفارغة خطأ
-    if (val === "") {
+    if (val === "" || (input.type === "number" && Number(val) < 0)) {
       input.classList.add("error");
       valid = false;
     }
-
-    // الأرقام السالبة خطأ
-    if (input.type === "number" && Number(val) < 0) {
-      input.classList.add("error");
-      valid = false;
-    }
-    // الصفر مقبول
   });
 
-  // ===== التحقق من التوازن =====
-  const male = Number(document.querySelector(".male")?.value || 0);
-  const female = Number(document.querySelector(".female")?.value || 0);
-  const totalByGender = male + female;
-
-  const ageInputs = document.querySelectorAll(".age-0-2m, .age-2m-1y, .age-1-2y, .age-2-5y");
-  let totalByAge = 0;
-  ageInputs.forEach(inp => totalByAge += Number(inp.value || 0));
-
-  const visitInputs = document.querySelectorAll(".visit-primary, .visit-followup");
-  let totalByVisit = 0;
-  visitInputs.forEach(inp => totalByVisit += Number(inp.value || 0));
-
-  if (totalByGender !== totalByAge || totalByGender !== totalByVisit) {
-    alert("⚠️ مجموع الحالات حسب النوع، العمر ونوع الزيارة غير متطابق");
-    valid = false;
-  }
-
   if (!valid) alert("⚠️ يرجى تصحيح الحقول المظللة باللون الأحمر");
-
   return valid;
 }
 
@@ -76,21 +46,19 @@ function savePDF() {
   doc.text("التاريخ: " + new Date().toLocaleDateString("ar-YE"), 10, 25);
 
   let y = 35;
+  const inputs = document.querySelectorAll("#healthForm input");
 
-  const rows = document.querySelectorAll("table tr");
-  rows.forEach(row => {
-    const cells = row.querySelectorAll("td");
-    if (cells.length === 2) {
-      const label = cells[0].innerText.trim();
-      const value = cells[1].querySelector("input")?.value || "";
-      if (label && value !== "") {
-        doc.text(`${label}: ${value}`, 10, y);
+  inputs.forEach(input => {
+    if (input.value) {
+      const label = input.closest("tr")?.cells[0]?.innerText || "";
+      if (label) {
+        doc.text(`${label}: ${input.value}`, 10, y);
         y += 7;
       }
     }
   });
 
-  doc.save("تقرير_الرعاية_التكاملية.pdf");
+  doc.save("تقرير_IMCI.pdf");
 }
 
 // ===== إرسال واتساب =====
@@ -100,18 +68,69 @@ function sendWhatsApp() {
   let msg = "*📊 تقرير الرعاية التكاملية - مديرية العدين*\n";
   msg += "*التاريخ:* " + new Date().toLocaleDateString("ar-YE") + "\n\n";
 
-  const rows = document.querySelectorAll("table tr");
-  rows.forEach(row => {
-    const cells = row.querySelectorAll("td");
-    if (cells.length === 2) {
-      const label = cells[0].innerText.trim();
-      const value = cells[1].querySelector("input")?.value || "";
-      if (label && value !== "") {
-        msg += `▫️ *${label}:* ${value}\n`;
-      }
+  const inputs = document.querySelectorAll("#healthForm input");
+  inputs.forEach(input => {
+    if (input.value) {
+      const label = input.closest("tr")?.cells[0]?.innerText || "";
+      if (label) msg += `▫️ *${label}:* ${input.value}\n`;
     }
   });
 
-  const whatsappUrl = `https://wa.me/967776572227?text=${encodeURIComponent(msg)}`;
-  window.open(whatsappUrl, "_blank");
+  window.open(
+    `https://wa.me/967776572227?text=${encodeURIComponent(msg)}`,
+    "_blank"
+  );
+}
+
+// ===== جمع البيانات من النموذج =====
+function collectFormData() {
+  const data = [];
+  const inputs = document.querySelectorAll("#healthForm input");
+
+  inputs.forEach(input => {
+    const label = input.closest("tr")?.cells[0]?.innerText?.trim() || "";
+    if (label) {
+      data.push({
+        "البند": label,
+        "القيمة": input.value === "" ? 0 : input.value
+      });
+    }
+  });
+
+  return data;
+}
+
+// ===== حفظ Excel =====
+function saveExcel() {
+  const data = collectFormData();
+  if (data.length === 0) {
+    alert("لا توجد بيانات للحفظ");
+    return;
+  }
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const workbook = XLSX.utils.book_new();
+  XLSX.utils.book_append_sheet(workbook, worksheet, "تقرير IMCI");
+
+  XLSX.writeFile(workbook, "تقرير_IMCI.xlsx");
+}
+
+// ===== حفظ CSV =====
+function saveCSV() {
+  const data = collectFormData();
+  if (data.length === 0) {
+    alert("لا توجد بيانات للحفظ");
+    return;
+  }
+
+  const worksheet = XLSX.utils.json_to_sheet(data);
+  const csv = XLSX.utils.sheet_to_csv(worksheet);
+
+  const blob = new Blob([csv], { type: "text/csv;charset=utf-8;" });
+  const link = document.createElement("a");
+  link.href = URL.createObjectURL(blob);
+  link.download = "تقرير_IMCI.csv";
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
