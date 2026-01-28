@@ -10,10 +10,10 @@
 <!-- jsPDF -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
-<!-- SheetJS (Excel) -->
+<!-- SheetJS (Excel/CSV) -->
 <script src="https://cdn.jsdelivr.net/npm/xlsx@0.18.5/dist/xlsx.full.min.js"></script>
-</head>
 
+</head>
 <body>
 
 <!-- شاشة الرمز الشهري -->
@@ -75,8 +75,8 @@
 </table>
 </div>
 
-<!-- تصنيف IMCI (2 شهر – 5 سنوات) -->
-<div class="section-title">👶 تصنيف IMCI (2 شهر – 5 سنوات)</div>
+<!-- تصنيف الأطفال من شهرين إلى أقل من خمس سنوات -->
+<div class="section-title">👶 تصنيف الأطفال (من 2 شهر إلى أقل من 5 سنوات)</div>
 <div class="card">
 <table>
 <tr><td>مرض شديد جدًا</td><td><input type="number" min="0" value="0"></td></tr>
@@ -89,6 +89,38 @@
 <tr><td>ملاريا</td><td><input type="number" min="0" value="0"></td></tr>
 <tr><td>حصبة</td><td><input type="number" min="0" value="0"></td></tr>
 <tr><td>سوء تغذية شديد</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>الدوسنتاريا</td><td><input type="number" min="0" value="0"></td></tr>
+</table>
+</div>
+
+<!-- تصنيف الحلق والأذن بعد الدوسنتاريا -->
+<div class="section-title">👂👄 تصنيف الحلق والأذن</div>
+<div class="card">
+<table>
+<tr><td>التهاب الحلق السبحي</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>التهاب الحلق غير السبحي</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>لا توجد مشكلة في الحلق</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>التهاب حاد بالأذن</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>التهاب مزمن بالأذن</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>مرض حمى شديد جدًا</td><td><input type="number" min="0" value="0"></td></tr>
+</table>
+</div>
+
+<!-- الأطفال أقل من شهرين -->
+<div class="section-title">🍼 تصنيف الأطفال أقل من شهرين</div>
+<div class="card">
+<table>
+<tr><td>اشتباه التهاب بكتيري خطير</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>التهاب بكتيري موضعي</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>يرقان</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>جفاف شديد</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>بعض الجفاف</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>لا يوجد جفاف</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>إسهال مستمر شديد</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>دم بالبراز</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>مشكلة في التغذية</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>إحالة فورية مع جرعة علاج</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>إحالة فورية بدون جرعة علاج</td><td><input type="number" min="0" value="0"></td></tr>
 </table>
 </div>
 
@@ -97,23 +129,8 @@
 <div class="card">
 <table>
 <tr><td>أقل من 11.5 سم</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>11.5 – أقل من 12.5 سم</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>11.5 – 12.5 سم</td><td><input type="number" min="0" value="0"></td></tr>
 <tr><td>12.5 سم فأكثر</td><td><input type="number" min="0" value="0"></td></tr>
-</table>
-</div>
-
-<!-- الأطفال أقل من شهرين -->
-<div class="section-title">🍼 تصنيف الأطفال أقل من شهرين (IMCI)</div>
-<div class="card">
-<table>
-<tr><td>اشتباه التهاب بكتيري خطير</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>التهاب بكتيري موضعي</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>يرقان</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>إسهال شديد</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>بعض الجفاف</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>لا يوجد جفاف</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>مشكلة في التغذية</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>لا توجد مشكلة تغذية</td><td><input type="number" min="0" value="0"></td></tr>
 </table>
 </div>
 
@@ -127,23 +144,19 @@
 </table>
 </div>
 
-<!-- نتائج المتابعة -->
-<div class="section-title">🔎 نتائج المتابعة</div>
-<div class="card">
-<table>
-<tr><td>تحسنت</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>لم تتحسن</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>ساءت</td><td><input type="number" min="0" value="0"></td></tr>
-<tr><td>توفيت</td><td><input type="number" min="0" value="0"></td></tr>
-</table>
-</div>
-
-<!-- العلاجات -->
+<!-- المضادات الحيوية وأدوية الملاريا -->
 <div class="section-title">💊 التدخلات العلاجية</div>
 <div class="card">
 <table>
+<tr><td>أموكسيسيلين</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>كوتريموكسازول</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>بنسبلين V</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>مضاد حيوي آخر</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>الأرتسونات + السلفادوكسين + البريميتامين</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>أرثيمتر + لوميفانترین</td><td><input type="number" min="0" value="0"></td></tr>
 <tr><td>عدد الحالات التي أعطيت مضاد حيوي</td><td><input type="number" min="0" value="0"></td></tr>
 <tr><td>عدد الحالات التي أعطيت محلول الأرواء + الزنك</td><td><input type="number" min="0" value="0"></td></tr>
+<tr><td>مشاكل أخرى</td><td><input type="number" min="0" value="0"></td></tr>
 </table>
 </div>
 
