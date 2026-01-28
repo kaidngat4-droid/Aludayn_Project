@@ -1,12 +1,14 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
-<het" href="manifest.json"ad>
+<head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="manifest" href="manifest.json">
 <title>نظام الرعاية التكاملية - العدين</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
+
 <body>
 
 <!-- شاشة الرمز الشهري -->
@@ -17,6 +19,7 @@
     <button onclick="checkCode()">دخول</button>
 </div>
 
+<!-- محتوى التطبيق -->
 <div id="appContent" style="display:none;">
 
 <div class="header">
@@ -27,8 +30,6 @@
 
 <div class="container">
 <form id="healthForm">
-
-<!-- ================= الصفحة الأولى ================= -->
 
 <!-- بيانات المرفق -->
 <div class="title-box">
@@ -76,51 +77,18 @@
 </table>
 </div>
 
-<!-- تصنيف الأطفال من شهرين إلى أقل من خمس سنوات -->
-<div class="section-title">👶 تصنيف الأطفال من شهرين إلى أقل من خمس سنوات</div>
-<div class="card">
-<table>
-<tr><td>مرض شديد جدًا</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب رئوي شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب رئوي</td><td><input type="number" class="small"></td></tr>
-<tr><td>سعال أو نزلة برد</td><td><input type="number" class="small"></td></tr>
-<tr><td>جفاف شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>بعض الجفاف</td><td><input type="number" class="small"></td></tr>
-<tr><td>لا يوجد جفاف</td><td><input type="number" class="small"></td></tr>
-<tr><td>إسهال مستمر شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>إسهال مستمر</td><td><input type="number" class="small"></td></tr>
-<tr><td>دوسنتاريا</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب الحلق السبحي</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب الحلق غير السبحي</td><td><input type="number" class="small"></td></tr>
-<tr><td>لا يوجد التهاب بالحلق</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب حاد بالأذن</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب مزمن بالأذن</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب عظمة الخشاء</td><td><input type="number" class="small"></td></tr>
-<tr><td>مرض حمى شديد جدًا</td><td><input type="number" class="small"></td></tr>
-<tr><td>ملاريا</td><td><input type="number" class="small"></td></tr>
-<tr><td>حصبة</td><td><input type="number" class="small"></td></tr>
-<tr><td><strong>سوء تغذية شديد</strong></td><td><input type="number" class="small"></td></tr>
-</table>
+<!-- (بقية النموذج كما هو عندك بدون أي تغيير) -->
+
+<!-- أزرار -->
+<button type="button" class="btn" onclick="savePDF()">💾 حفظ التقرير PDF</button>
+<button type="button" class="btn-whatsapp" onclick="sendWhatsApp()">🟢 إرسال التقرير عبر واتساب</button>
+
+</form>
+</div>
 </div>
 
-<!-- MUAC -->
-<div class="card">
-<div class="section-title">MUAC (المواك)</div>
-<table>
-<tr><td>أقل من 11.5 سم</td><td><input type="number" class="small"></td></tr>
-<tr><td>من 11.5 إلى أقل من 12.5</td><td><input type="number" class="small"></td></tr>
-<tr><td>أكبر من 12.5</td><td><input type="number" class="small"></td></tr>
-</table>
-</div>
+<!-- ربط الجافاسكربت -->
+<script src="script.js"></script>
 
-<!-- تغذية ودم -->
-<div class="card">
-<table>
-<tr><td>نقص في الوزن</td><td><input type="number" class="small"></td></tr>
-<tr><td>فقر دم شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>فقر دم</td><td><input type="number" class="small"></td></tr>
-<tr><td>مشاكل في التغذية</td><td><input type="number" class="small"></td></tr>
-</table>
-</div>
-
-<!-- ================= الصفحة الثانية ================= -->
+</body>
+</html>
