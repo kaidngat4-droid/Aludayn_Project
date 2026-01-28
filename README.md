@@ -1,5 +1,5 @@
 <p align="center">
-  <img src="icon512.png" width="160" alt="شعار نظام الرعاية التكاملية">
+  <img src="1001366205.jpg" width="160" alt="شعار نظام الرعاية التكاملية">
 </p>
 
 <h2 align="center">
