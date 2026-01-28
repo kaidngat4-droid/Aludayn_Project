@@ -41,18 +41,15 @@ function validateForm() {
   });
 
   // ===== التحقق من التوازن =====
-  // المجموع حسب النوع
-  const male = Number(document.querySelector("td:contains('ذكور') + td input")?.value || 0);
-  const female = Number(document.querySelector("td:contains('إناث') + td input")?.value || 0);
+  const male = Number(document.querySelector(".male")?.value || 0);
+  const female = Number(document.querySelector(".female")?.value || 0);
   const totalByGender = male + female;
 
-  // المجموع حسب العمر
-  const ageInputs = document.querySelectorAll("div.section-title:contains('عدد الحالات حسب العمر') + div.card input");
+  const ageInputs = document.querySelectorAll(".age-0-2m, .age-2m-1y, .age-1-2y, .age-2-5y");
   let totalByAge = 0;
   ageInputs.forEach(inp => totalByAge += Number(inp.value || 0));
 
-  // المجموع حسب نوع الزيارة
-  const visitInputs = document.querySelectorAll("div.section-title:contains('نوع الزيارة') + div.card input");
+  const visitInputs = document.querySelectorAll(".visit-primary, .visit-followup");
   let totalByVisit = 0;
   visitInputs.forEach(inp => totalByVisit += Number(inp.value || 0));
 
@@ -79,16 +76,15 @@ function savePDF() {
   doc.text("التاريخ: " + new Date().toLocaleDateString("ar-YE"), 10, 25);
 
   let y = 35;
-  const inputs = document.querySelectorAll("input");
 
-  inputs.forEach(input => {
-    if (input.value) {
-      let label =
-        input.closest("tr")?.cells[0]?.innerText ||
-        input.previousSibling?.innerText ||
-        "";
-      if (label) {
-        doc.text(`${label}: ${input.value}`, 10, y);
+  const rows = document.querySelectorAll("table tr");
+  rows.forEach(row => {
+    const cells = row.querySelectorAll("td");
+    if (cells.length === 2) {
+      const label = cells[0].innerText.trim();
+      const value = cells[1].querySelector("input")?.value || "";
+      if (label && value !== "") {
+        doc.text(`${label}: ${value}`, 10, y);
         y += 7;
       }
     }
@@ -104,17 +100,18 @@ function sendWhatsApp() {
   let msg = "*📊 تقرير الرعاية التكاملية - مديرية العدين*\n";
   msg += "*التاريخ:* " + new Date().toLocaleDateString("ar-YE") + "\n\n";
 
-  const inputs = document.querySelectorAll("input");
-
-  inputs.forEach(input => {
-    if (input.value) {
-      let label = input.closest("tr")?.cells[0]?.innerText || "";
-      if (label) msg += `▫️ *${label}:* ${input.value}\n`;
+  const rows = document.querySelectorAll("table tr");
+  rows.forEach(row => {
+    const cells = row.querySelectorAll("td");
+    if (cells.length === 2) {
+      const label = cells[0].innerText.trim();
+      const value = cells[1].querySelector("input")?.value || "";
+      if (label && value !== "") {
+        msg += `▫️ *${label}:* ${value}\n`;
+      }
     }
   });
 
-  window.open(
-    `https://wa.me/967776572227?text=${encodeURIComponent(msg)}`,
-    "_blank"
-  );
+  const whatsappUrl = `https://wa.me/967776572227?text=${encodeURIComponent(msg)}`;
+  window.open(whatsappUrl, "_blank");
 }
