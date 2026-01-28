@@ -1,21 +1,16 @@
-  /* ===== الإعدادات العامة ===== */
 body {
   font-family: 'Cairo', sans-serif;
-  background-image: url('images/background.jpg');
-  background-size: cover;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  background-position: center;
+  background: #f7fafc;
   margin: 0;
   padding-bottom: 40px;
   color: #333;
 }
 
-/* ===== شاشة القفل ===== */
+/* شاشة القفل */
 .lock-screen {
   position: fixed;
   inset: 0;
-  background: linear-gradient(135deg, #2c5282, #2b6cb0);
+  background: #2c5282;
   color: white;
   display: flex;
   flex-direction: column;
@@ -24,17 +19,16 @@ body {
   z-index: 9999;
 }
 .lock-screen input {
-  padding: 12px;
-  border-radius: 10px;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
   margin: 10px 0;
-  width: 220px;
+  width: 200px;
   text-align: center;
-  font-size: 16px;
 }
 .lock-screen button {
-  padding: 12px 25px;
-  border-radius: 12px;
+  padding: 10px 20px;
+  border-radius: 10px;
   border: none;
   background: white;
   color: #2c5282;
@@ -42,14 +36,11 @@ body {
   cursor: pointer;
 }
 
-/* ===== الهيدر ===== */
 .header {
   background: white;
   padding: 20px;
   text-align: center;
   border-bottom: 6px solid #2c5282;
-  border-radius: 0 0 25px 25px;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
 }
 .header img {
   width: 90px;
@@ -65,33 +56,29 @@ body {
   color: #2c5282;
 }
 
-/* ===== المحتوى ===== */
 .container {
   max-width: 700px;
   margin: auto;
   padding: 15px;
 }
 
-/* ===== العناوين ===== */
 .section-title {
   background: linear-gradient(90deg, #2c5282, #2b6cb0);
   color: white;
-  padding: 12px 18px;
-  border-radius: 15px;
+  padding: 10px 15px;
+  border-radius: 12px;
   margin: 25px 0 15px;
   font-weight: bold;
 }
 
-/* ===== البطاقات ===== */
 .card {
   background: white;
   border-radius: 20px;
   padding: 15px;
   margin-bottom: 15px;
-  box-shadow: 0 8px 15px rgba(0,0,0,0.1);
+  box-shadow: 0 6px 12px rgba(0,0,0,0.1);
 }
 
-/* ===== الجداول ===== */
 table {
   width: 100%;
   border-collapse: collapse;
@@ -102,7 +89,6 @@ td {
   font-size: 14px;
 }
 
-/* ===== الحقول ===== */
 input[type="text"],
 input[type="month"],
 input[type="number"] {
@@ -120,7 +106,7 @@ input[type="month"] {
 }
 
 input[type="number"] {
-  width: 65px;
+  width: 60px;
 }
 
 input:focus {
@@ -128,13 +114,12 @@ input:focus {
   background: #ebf8ff;
 }
 
-/* ===== الحقول الخاطئة ===== */
+/* تلوين الخطأ */
 input.error {
   border-color: red !important;
-  background-color: #ffe6e6;
+  background: #ffe6e6;
 }
 
-/* ===== الأزرار ===== */
 .btn {
   width: 100%;
   padding: 15px;
