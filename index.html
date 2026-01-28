@@ -11,139 +11,101 @@
 
 <!-- شاشة الرمز الشهري -->
 <div class="lock-screen" id="lockScreen">
-    <h3>🔐 دخول التقرير الشهري</h3>
-    <p>يرجى إدخال رمز الشهر</p>
-    <input type="number" id="monthCode" placeholder="رمز الشهر">
-    <button onclick="checkCode()">دخول</button>
+  <h3>🔐 دخول التقرير الشهري</h3>
+  <p>يرجى إدخال رمز الشهر</p>
+  <input type="number" id="monthCode" placeholder="مثال: 122026">
+  <button onclick="checkCode()">دخول</button>
 </div>
 
 <div id="appContent" style="display:none;">
 
 <div class="header">
-    <img src="images/1001366205.jpg">
-    <h1>الجمهورية اليمنية - وزارة الصحة والبيئة</h1>
-    <h2>مكتب الصحة والبيئة - مديرية العدين</h2>
+  <img src="icon512.png" alt="شعار المرفق">
+  <h1>الجمهورية اليمنية - وزارة الصحة والبيئة</h1>
+  <h2>مكتب الصحة والبيئة - مديرية العدين</h2>
 </div>
 
 <div class="container">
 <form id="healthForm">
 
-<!-- ================= الصفحة الأولى ================= -->
-
 <!-- بيانات المرفق -->
-<div class="title-box">
+<div class="card">
 <table>
 <tr>
-<td><strong>اسم المرفق الصحي</strong><br><input type="text"></td>
-<td><strong>اسم العامل الصحي</strong><br><input type="text"></td>
-<td><strong>الشهر والسنة</strong><br><input type="month"></td>
+<td>اسم المرفق الصحي<br><input type="text" required></td>
+<td>اسم العامل الصحي<br><input type="text" required></td>
+<td>الشهر والسنة<br><input type="month" required></td>
 </tr>
 </table>
 </div>
 
 <!-- نوع الزيارة -->
-<div class="card">
 <div class="section-title">نوع الزيارة</div>
-<label><input type="radio" name="visit"> أولية</label>
-&nbsp;&nbsp;
-<label><input type="radio" name="visit"> متابعة</label>
+<div class="card">
+<table>
+<tr><td>أولية</td><td><input type="number" min="0"></td></tr>
+<tr><td>متابعة</td><td><input type="number" min="0"></td></tr>
+</table>
 </div>
 
 <!-- عدد الحالات حسب النوع -->
-<div class="card">
 <div class="section-title">عدد الحالات حسب النوع</div>
+<div class="card">
 <table>
-<tr><td>ذكور</td><td><input type="number" class="small"></td></tr>
-<tr><td>إناث</td><td><input type="number" class="small"></td></tr>
+<tr><td>ذكور</td><td><input type="number" min="0"></td></tr>
+<tr><td>إناث</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
 <!-- عدد الحالات حسب العمر -->
-<div class="card">
 <div class="section-title">عدد الحالات حسب العمر</div>
+<div class="card">
 <table>
-<tr><td>أقل من شهرين</td><td><input type="number" class="small"></td></tr>
-<tr><td>من شهرين إلى أقل من سنة</td><td><input type="number" class="small"></td></tr>
-<tr><td>من سنة إلى أقل من سنتين</td><td><input type="number" class="small"></td></tr>
-<tr><td>من سنتين إلى أقل من خمس سنوات</td><td><input type="number" class="small"></td></tr>
+<tr><td>أقل من شهرين</td><td><input type="number" min="0"></td></tr>
+<tr><td>من شهرين إلى أقل من سنة</td><td><input type="number" min="0"></td></tr>
+<tr><td>من سنة إلى أقل من سنتين</td><td><input type="number" min="0"></td></tr>
+<tr><td>من سنتين إلى أقل من خمس سنوات</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
-<!-- تصنيف الأطفال من شهرين إلى أقل من خمس سنوات -->
-<div class="section-title">👶 تصنيف الأطفال من شهرين إلى أقل من خمس سنوات</div>
+<!-- تصنيف الأطفال 2 شهر – 5 سنوات + MUAC -->
+<div class="section-title">👶 تصنيف IMCI (2 شهر – 5 سنوات)</div>
 <div class="card">
 <table>
-<tr><td>مرض شديد جدًا</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب رئوي شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب رئوي</td><td><input type="number" class="small"></td></tr>
-<tr><td>سعال أو نزلة برد</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>جفاف شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>بعض الجفاف</td><td><input type="number" class="small"></td></tr>
-<tr><td>لا يوجد جفاف</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>إسهال مستمر شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>إسهال مستمر</td><td><input type="number" class="small"></td></tr>
-<tr><td>دوسنتاريا</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>التهاب الحلق السبحي</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب الحلق غير السبحي</td><td><input type="number" class="small"></td></tr>
-<tr><td>لا يوجد التهاب بالحلق</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>التهاب حاد بالأذن</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب مزمن بالأذن</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب عظمة الخشاء</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>مرض حمى شديد جدًا</td><td><input type="number" class="small"></td></tr>
-<tr><td>ملاريا</td><td><input type="number" class="small"></td></tr>
-<tr><td>حصبة</td><td><input type="number" class="small"></td></tr>
-
-<tr><td><strong>سوء تغذية شديد</strong></td><td><input type="number" class="small"></td></tr>
+<tr><td>مرض شديد جدًا</td><td><input type="number" min="0"></td></tr>
+<tr><td>التهاب رئوي شديد</td><td><input type="number" min="0"></td></tr>
+<tr><td>التهاب رئوي</td><td><input type="number" min="0"></td></tr>
+<tr><td>سعال أو نزلة برد</td><td><input type="number" min="0"></td></tr>
+<tr><td>جفاف شديد</td><td><input type="number" min="0"></td></tr>
+<tr><td>بعض الجفاف</td><td><input type="number" min="0"></td></tr>
+<tr><td>لا يوجد جفاف</td><td><input type="number" min="0"></td></tr>
+<tr><td>ملاريا</td><td><input type="number" min="0"></td></tr>
+<tr><td>حصبة</td><td><input type="number" min="0"></td></tr>
+<tr><td>سوء تغذية شديد</td><td><input type="number" min="0"></td></tr>
+<tr><td>MUAC &lt; 11.5 سم</td><td><input type="number" min="0"></td></tr>
+<tr><td>MUAC 11.5–12.5 سم</td><td><input type="number" min="0"></td></tr>
+<tr><td>MUAC &gt;= 12.5 سم</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
-<!-- MUAC -->
-<div class="card">
-<div class="section-title">MUAC (المواك)</div>
-<table>
-<tr><td>أقل من 11.5 سم</td><td><input type="number" class="small"></td></tr>
-<tr><td>من 11.5 إلى أقل من 12.5</td><td><input type="number" class="small"></td></tr>
-<tr><td>أكبر من 12.5</td><td><input type="number" class="small"></td></tr>
-</table>
-</div>
-
-<!-- تغذية ودم -->
+<!-- أطفال أقل من شهرين -->
+<div class="section-title">🍼 أطفال أقل من شهرين</div>
 <div class="card">
 <table>
-<tr><td>نقص في الوزن</td><td><input type="number" class="small"></td></tr>
-<tr><td>فقر دم شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>فقر دم</td><td><input type="number" class="small"></td></tr>
-<tr><td>مشاكل في التغذية</td><td><input type="number" class="small"></td></tr>
-</table>
-</div>
-
-<!-- ================= الصفحة الثانية ================= -->
-<!-- تصنيف الأطفال أقل من شهرين + المضادات الحيوية + علاج الملاريا + خطة الأرواء + متابعة الحالات -->
-
-<div class="section-title">🍼 تصنيف الأطفال أقل من شهرين</div>
-<div class="card">
-<table>
-<tr><td>احتمال التهاب بكتيري خطير</td><td><input type="number" class="small"></td></tr>
-<tr><td>التهاب بكتيري موضعي</td><td><input type="number" class="small"></td></tr>
-<tr><td>صفار واضح (يرقان)</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>جفاف شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>بعض الجفاف</td><td><input type="number" class="small"></td></tr>
-<tr><td>لا يوجد جفاف</td><td><input type="number" class="small"></td></tr>
-
-<tr><td>إسهال مستمر شديد</td><td><input type="number" class="small"></td></tr>
-<tr><td>دم بالبراز</td><td><input type="number" class="small"></td></tr>
-<tr><td>مشكلة في التغذية</td><td><input type="number" class="small"></td></tr>
-<tr><td>نقص في الوزن</td><td><input type="number" class="small"></td></tr>
-<tr><td>لا توجد مشكلة في التغذية</td><td><input type="number" class="small"></td></tr>
-<tr><td>مشاكل أخرى</td><td><input type="number" class="small"></td></tr>
-<tr><td>إحالة فورية مع جرعة علاج</td><td><input type="number" class="small"></td></tr>
-<tr><td>إحالة فورية بدون جرعة علاج</td><td><input type="number" class="small"></td></tr>
+<tr><td>احتمال التهاب بكتيري خطير</td><td><input type="number" min="0"></td></tr>
+<tr><td>التهاب بكتيري موضعي</td><td><input type="number" min="0"></td></tr>
+<tr><td>يرقان</td><td><input type="number" min="0"></td></tr>
+<tr><td>جفاف شديد</td><td><input type="number" min="0"></td></tr>
+<tr><td>بعض الجفاف</td><td><input type="number" min="0"></td></tr>
+<tr><td>لا يوجد جفاف</td><td><input type="number" min="0"></td></tr>
+<tr><td>إسهال مستمر شديد</td><td><input type="number" min="0"></td></tr>
+<tr><td>دم بالبراز</td><td><input type="number" min="0"></td></tr>
+<tr><td>مشكلة في التغذية</td><td><input type="number" min="0"></td></tr>
+<tr><td>نقص في الوزن</td><td><input type="number" min="0"></td></tr>
+<tr><td>لا توجد مشكلة في التغذية</td><td><input type="number" min="0"></td></tr>
+<tr><td>مشاكل أخرى</td><td><input type="number" min="0"></td></tr>
+<tr><td>إحالة فورية مع جرعة علاج</td><td><input type="number" min="0"></td></tr>
+<tr><td>إحالة فورية بدون جرعة علاج</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
@@ -151,10 +113,10 @@
 <div class="section-title">💊 المضادات الحيوية</div>
 <div class="card">
 <table>
-<tr><td>أموكسيسيلين</td><td><input type="number" class="small"></td></tr>
-<tr><td>كوتريموكسازول</td><td><input type="number" class="small"></td></tr>
-<tr><td>بنسبلين V</td><td><input type="number" class="small"></td></tr>
-<tr><td>مضاد حيوي آخر</td><td><input type="number" class="small"></td></tr>
+<tr><td>أموكسيسيلين</td><td><input type="number" min="0"></td></tr>
+<tr><td>كوتريموكسازول</td><td><input type="number" min="0"></td></tr>
+<tr><td>بنسبلين V</td><td><input type="number" min="0"></td></tr>
+<tr><td>مضاد حيوي آخر</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
@@ -162,8 +124,8 @@
 <div class="section-title">🩺 علاج الملاريا</div>
 <div class="card">
 <table>
-<tr><td>الأرتسونات + السلفادوكسين + البريميتامين</td><td><input type="number" class="small"></td></tr>
-<tr><td>أرثيمتر + لوميفانترین</td><td><input type="number" class="small"></td></tr>
+<tr><td>الأرتسونات + السلفادوكسين + البريميتامين</td><td><input type="number" min="0"></td></tr>
+<tr><td>أرثيمتر + لوميفانترین</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
@@ -171,9 +133,9 @@
 <div class="section-title">📋 خطة الأرواء</div>
 <div class="card">
 <table>
-<tr><td>خطة أ</td><td><input type="number" class="small"></td></tr>
-<tr><td>خطة ب</td><td><input type="number" class="small"></td></tr>
-<tr><td>خطة ج</td><td><input type="number" class="small"></td></tr>
+<tr><td>خطة أ</td><td><input type="number" min="0"></td></tr>
+<tr><td>خطة ب</td><td><input type="number" min="0"></td></tr>
+<tr><td>خطة ج</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
@@ -181,12 +143,12 @@
 <div class="section-title">🔎 الحالات المتابعة</div>
 <div class="card">
 <table>
-<tr><td>تحسنت</td><td><input type="number" class="small"></td></tr>
-<tr><td>لم تتحسن</td><td><input type="number" class="small"></td></tr>
-<tr><td>سائت</td><td><input type="number" class="small"></td></tr>
-<tr><td>توفيت</td><td><input type="number" class="small"></td></tr>
-<tr><td>عدد حالات الالتهاب الرئوي التي أعطيت المضاد الحيوي</td><td><input type="number" class="small"></td></tr>
-<tr><td>عدد حالات الإسهالات التي أخذت محلول الأرواء والزنك</td><td><input type="number" class="small"></td></tr>
+<tr><td>تحسنت</td><td><input type="number" min="0"></td></tr>
+<tr><td>لم تتحسن</td><td><input type="number" min="0"></td></tr>
+<tr><td>سائت</td><td><input type="number" min="0"></td></tr>
+<tr><td>توفيت</td><td><input type="number" min="0"></td></tr>
+<tr><td>عدد حالات الالتهاب الرئوي التي أعطيت المضاد الحيوي</td><td><input type="number" min="0"></td></tr>
+<tr><td>عدد حالات الإسهالات التي أخذت محلول الأرواء والزنك</td><td><input type="number" min="0"></td></tr>
 </table>
 </div>
 
@@ -207,4 +169,4 @@
 
 <script src="script.js"></script>
 </body>
-                                                              </html>
+</html>
