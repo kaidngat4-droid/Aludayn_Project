@@ -1,15 +1,11 @@
 // ===== شاشة الرمز الشهري =====
 function checkCode() {
   const code = document.getElementById("monthCode").value.trim();
-
+  const correctCode = "122026"; // الرمز الشهري الجديد
   if (!code) {
     alert("يرجى إدخال رمز الشهر");
     return;
   }
-
-  // الرمز الشهري المحدد
-  const correctCode = "122026"; 
-
   if (code === correctCode) {
     document.getElementById("lockScreen").style.display = "none";
     document.getElementById("appContent").style.display = "block";
@@ -18,43 +14,55 @@ function checkCode() {
   }
 }
 
-// ===== التحقق من صحة القيم =====
+// ===== التحقق من القيم =====
 function validateForm() {
   let valid = true;
   const inputs = document.querySelectorAll("input[type='number'], input[type='text'], input[type='month']");
-  
-  // إزالة تمييز الأخطاء القديم
+
+  // إزالة أي تلوين سابق
   inputs.forEach(input => input.classList.remove("error"));
 
-  // تحقق من الحقول
+  // التحقق من الحقول الأساسية
   inputs.forEach(input => {
-    if (!input.value) {
-      input.classList.add("error");
-      valid = false;
-    } else if (input.type === "number" && Number(input.value) < 0) {
+    const val = input.value.trim();
+
+    // الحقول الفارغة خطأ
+    if (val === "") {
       input.classList.add("error");
       valid = false;
     }
+
+    // الأرقام السالبة خطأ
+    if (input.type === "number" && Number(val) < 0) {
+      input.classList.add("error");
+      valid = false;
+    }
+    // الصفر مقبول
   });
 
-  // تحقق من إجمالي عدد الحالات
-  const male = Number(document.querySelectorAll("input")[2].value) || 0;
-  const female = Number(document.querySelectorAll("input")[3].value) || 0;
-  const totalBySex = male + female;
+  // ===== التحقق من التوازن =====
+  // المجموع حسب النوع
+  const male = Number(document.querySelector("td:contains('ذكور') + td input")?.value || 0);
+  const female = Number(document.querySelector("td:contains('إناث') + td input")?.value || 0);
+  const totalByGender = male + female;
 
-  const ageInputs = document.querySelectorAll("input[type='number']");
+  // المجموع حسب العمر
+  const ageInputs = document.querySelectorAll("div.section-title:contains('عدد الحالات حسب العمر') + div.card input");
   let totalByAge = 0;
-  for (let i = 4; i <= 7; i++) totalByAge += Number(ageInputs[i].value) || 0;
+  ageInputs.forEach(inp => totalByAge += Number(inp.value || 0));
 
-  const visitInputs = document.querySelectorAll("input[type='number']");
-  const totalVisit = (Number(visitInputs[0].value) || 0) + (Number(visitInputs[1].value) || 0);
+  // المجموع حسب نوع الزيارة
+  const visitInputs = document.querySelectorAll("div.section-title:contains('نوع الزيارة') + div.card input");
+  let totalByVisit = 0;
+  visitInputs.forEach(inp => totalByVisit += Number(inp.value || 0));
 
-  if (totalBySex !== totalByAge || totalBySex !== totalVisit) {
-    alert("⚠️ إجمالي الحالات حسب النوع يجب أن يساوي إجمالي الحالات حسب العمر ونوع الزيارة");
+  if (totalByGender !== totalByAge || totalByGender !== totalByVisit) {
+    alert("⚠️ مجموع الحالات حسب النوع، العمر ونوع الزيارة غير متطابق");
     valid = false;
   }
 
   if (!valid) alert("⚠️ يرجى تصحيح الحقول المظللة باللون الأحمر");
+
   return valid;
 }
 
@@ -63,7 +71,8 @@ function savePDF() {
   if (!validateForm()) return;
 
   const { jsPDF } = window.jspdf;
-  const doc = new jsPDF({ orientation: "portrait", unit: "mm", format: "a4" });
+  const doc = new jsPDF("p", "mm", "a4");
+
   doc.setFontSize(14);
   doc.text("📊 تقرير الرعاية التكاملية - مديرية العدين", 10, 15);
   doc.setFontSize(11);
@@ -74,7 +83,10 @@ function savePDF() {
 
   inputs.forEach(input => {
     if (input.value) {
-      let label = input.closest("tr")?.cells[0]?.innerText || input.previousSibling?.innerText || "";
+      let label =
+        input.closest("tr")?.cells[0]?.innerText ||
+        input.previousSibling?.innerText ||
+        "";
       if (label) {
         doc.text(`${label}: ${input.value}`, 10, y);
         y += 7;
@@ -93,6 +105,7 @@ function sendWhatsApp() {
   msg += "*التاريخ:* " + new Date().toLocaleDateString("ar-YE") + "\n\n";
 
   const inputs = document.querySelectorAll("input");
+
   inputs.forEach(input => {
     if (input.value) {
       let label = input.closest("tr")?.cells[0]?.innerText || "";
