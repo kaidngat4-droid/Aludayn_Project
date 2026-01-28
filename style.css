@@ -1,40 +1,36 @@
-/* ===== الإعدادات العامة ===== */
-body {
-  font-family: 'Cairo', sans-serif;
-  margin: 0;
-  padding-bottom: 40px;
-  color: #333;
-
-  /* الخلفية */
-  background-image: url("background.jpg");
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-position: center;
-  background-attachment: fixed;
-}
-
-/* ===== شاشة القفل ===== */
+/* شاشة القفل - صفحة الرمز الشهري */
 .lock-screen {
   position: fixed;
   inset: 0;
-  background: #2c5282;
+
+  /* صورة الخلفية مع طبقة داكنة */
+  background:
+    linear-gradient(rgba(44,82,130,0.85), rgba(44,82,130,0.85)),
+    url("background.jpg") no-repeat center center;
+
+  background-size: cover;
+
   color: white;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   z-index: 9999;
+  text-align: center;
 }
+
 .lock-screen input {
   padding: 10px;
   border-radius: 8px;
   border: none;
-  margin: 10px 0;
-  width: 200px;
+  margin: 12px 0;
+  width: 220px;
   text-align: center;
+  font-size: 16px;
 }
+
 .lock-screen button {
-  padding: 10px 20px;
+  padding: 10px 25px;
   border-radius: 10px;
   border: none;
   background: white;
