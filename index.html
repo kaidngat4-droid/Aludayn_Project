@@ -3,92 +3,166 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="manifest" href="manifest.json">
 <title>نظام الرعاية التكاملية - العدين</title>
 <link rel="stylesheet" href="style.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 </head>
-
 <body>
 
 <!-- شاشة الرمز الشهري -->
 <div class="lock-screen" id="lockScreen">
     <h3>🔐 دخول التقرير الشهري</h3>
     <p>يرجى إدخال رمز الشهر</p>
-    <input type="number" id="monthCode" placeholder="رمز الشهر">
+    <input type="number" id="monthCode" placeholder="مثال: 122026">
     <button onclick="checkCode()">دخول</button>
 </div>
 
-<!-- محتوى التطبيق -->
 <div id="appContent" style="display:none;">
+    <div class="header">
+        <img src="icon512.png" alt="شعار المرفق">
+        <h1>الجمهورية اليمنية - وزارة الصحة والبيئة</h1>
+        <h2>مكتب الصحة والبيئة - مديرية العدين</h2>
+    </div>
 
-<div class="header">
-    <img src="1001366205.jpg" alt="شعار المرفق">
-    <h1>الجمهورية اليمنية - وزارة الصحة والبيئة</h1>
-    <h2>مكتب الصحة والبيئة - مديرية العدين</h2>
+    <div class="container">
+        <form id="healthForm">
+
+            <!-- بيانات المرفق -->
+            <div class="card">
+                <table>
+                    <tr>
+                        <td>اسم المرفق الصحي<br><input type="text" required></td>
+                        <td>اسم العامل الصحي<br><input type="text" required></td>
+                        <td>الشهر والسنة<br><input type="month" required></td>
+                    </tr>
+                </table>
+            </div>
+
+            <!-- نوع الزيارة -->
+            <div class="section-title">نوع الزيارة</div>
+            <div class="card">
+                <table>
+                    <tr><td>أولية</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>متابعة</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- عدد الحالات حسب النوع -->
+            <div class="section-title">عدد الحالات حسب النوع</div>
+            <div class="card">
+                <table>
+                    <tr><td>ذكور</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>إناث</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- عدد الحالات حسب العمر -->
+            <div class="section-title">عدد الحالات حسب العمر</div>
+            <div class="card">
+                <table>
+                    <tr><td>أقل من شهرين</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>من شهرين إلى أقل من سنة</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>من سنة إلى أقل من سنتين</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>من سنتين إلى أقل من خمس سنوات</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- تصنيف IMCI 2 شهر - 5 سنوات -->
+            <div class="section-title">👶 تصنيف IMCI (2 شهر – 5 سنوات)</div>
+            <div class="card">
+                <table>
+                    <tr><td>مرض شديد جدًا</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>التهاب رئوي شديد</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>التهاب رئوي</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>سعال أو نزلة برد</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>جفاف شديد</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>بعض الجفاف</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>لا يوجد جفاف</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>ملاريا</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>حصبة</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>سوء تغذية شديد</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- الأطفال أقل من شهرين -->
+            <div class="section-title">🍼 تصنيف الأطفال أقل من شهرين</div>
+            <div class="card">
+                <table>
+                    <tr><td>احتمال التهاب بكتيري خطير</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>التهاب بكتيري موضعي</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>صفار واضح (يرقان)</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>جفاف شديد</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>بعض الجفاف</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>لا يوجد جفاف</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>إسهال مستمر شديد</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>دم بالبراز</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>مشكلة في التغذية</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>نقص في الوزن</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>لا توجد مشكلة في التغذية</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>مشاكل أخرى</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>إحالة فورية مع جرعة علاج</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>إحالة فورية بدون جرعة علاج</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- المضادات الحيوية -->
+            <div class="section-title">💊 المضادات الحيوية</div>
+            <div class="card">
+                <table>
+                    <tr><td>أموكسيسيلين</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>كوتريموكسازول</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>بنسبلين V</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>مضاد حيوي آخر</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- علاج الملاريا -->
+            <div class="section-title">🩺 علاج الملاريا</div>
+            <div class="card">
+                <table>
+                    <tr><td>الأرتسونات + السلفادوكسين + البريميتامين</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>أرثيمتر + لوميفانترین</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- خطة الأرواء -->
+            <div class="section-title">📋 خطة الأرواء</div>
+            <div class="card">
+                <table>
+                    <tr><td>خطة أ</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>خطة ب</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>خطة ج</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- متابعة الحالات -->
+            <div class="section-title">🔎 الحالات المتابعة</div>
+            <div class="card">
+                <table>
+                    <tr><td>تحسنت</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>لم تتحسن</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>سائت</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>توفيت</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>عدد حالات الالتهاب الرئوي التي أعطيت المضاد الحيوي</td><td><input type="number" min="0"></td></tr>
+                    <tr><td>عدد حالات الإسهالات التي أخذت محلول الأرواء والزنك</td><td><input type="number" min="0"></td></tr>
+                </table>
+            </div>
+
+            <!-- العبارة الختامية -->
+            <div class="card">
+                <p style="text-align:center; font-weight:bold; color:#2c5282;">
+                    التزامنا بنظام التقارير جزء من مسؤوليتنا
+                </p>
+            </div>
+
+            <!-- أزرار حفظ وإرسال -->
+            <button type="button" class="btn" onclick="savePDF()">💾 حفظ التقرير PDF</button>
+            <button type="button" class="btn-whatsapp" onclick="sendWhatsApp()">🟢 إرسال التقرير عبر واتساب</button>
+
+        </form>
+    </div>
 </div>
 
-<div class="container">
-<form id="healthForm">
-
-<!-- بيانات المرفق -->
-<div class="title-box">
-<table>
-<tr>
-<td><strong>اسم المرفق الصحي</strong><br><input type="text"></td>
-<td><strong>اسم العامل الصحي</strong><br><input type="text"></td>
-<td><strong>الشهر والسنة</strong><br><input type="month"></td>
-</tr>
-</table>
-</div>
-
-<!-- نوع الزيارة -->
-<div class="card">
-<div class="section-title">نوع الزيارة</div>
-<table>
-<tr>
-<td>أولية</td>
-<td><input type="number" class="small"></td>
-</tr>
-<tr>
-<td>متابعة</td>
-<td><input type="number" class="small"></td>
-</tr>
-</table>
-</div>
-
-<!-- عدد الحالات حسب النوع -->
-<div class="card">
-<div class="section-title">عدد الحالات حسب النوع</div>
-<table>
-<tr><td>ذكور</td><td><input type="number" class="small"></td></tr>
-<tr><td>إناث</td><td><input type="number" class="small"></td></tr>
-</table>
-</div>
-
-<!-- عدد الحالات حسب العمر -->
-<div class="card">
-<div class="section-title">عدد الحالات حسب العمر</div>
-<table>
-<tr><td>أقل من شهرين</td><td><input type="number" class="small"></td></tr>
-<tr><td>من شهرين إلى أقل من سنة</td><td><input type="number" class="small"></td></tr>
-<tr><td>من سنة إلى أقل من سنتين</td><td><input type="number" class="small"></td></tr>
-<tr><td>من سنتين إلى أقل من خمس سنوات</td><td><input type="number" class="small"></td></tr>
-</table>
-</div>
-
-<!-- (بقية النموذج كما هو عندك بدون أي تغيير) -->
-
-<!-- أزرار -->
-<button type="button" class="btn" onclick="savePDF()">💾 حفظ التقرير PDF</button>
-<button type="button" class="btn-whatsapp" onclick="sendWhatsApp()">🟢 إرسال التقرير عبر واتساب</button>
-
-</form>
-</div>
-</div>
-
-<!-- ربط الجافاسكربت -->
 <script src="script.js"></script>
-
 </body>
 </html>
