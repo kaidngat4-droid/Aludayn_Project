@@ -167,3 +167,43 @@ input.error {
   color: white;
   cursor: pointer;
 }
+.btn-whatsapp {
+  margin-top: 15px;
+  width: 100%;
+  padding: 18px;
+  font-size: 18px;
+  font-weight: bold;
+  border-radius: 15px;
+  border: none;
+  background: linear-gradient(135deg, #25d366, #128c7e);
+  color: white;
+  cursor: pointer;
+}
+
+/* ===== تلوين عناوين بيانات المرفق ===== */
+.label {
+  font-weight: bold;
+  font-size: 14px;
+  display: inline-block;
+  margin-bottom: 4px;
+}
+
+.governorate {
+  color: #1a365d;
+}
+
+.district {
+  color: #2c5282;
+}
+
+.facility {
+  color: #2f855a;
+}
+
+.staff {
+  color: #805ad5;
+}
+
+.month {
+  color: #b83280;
+}
