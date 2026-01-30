@@ -1,11 +1,14 @@
 {
   "name": "نظام الرعاية التكاملية - العدين",
   "short_name": "IMCI العدين",
-  "start_url": "./index.html",
+  "description": "نظام تقارير الرعاية التكاملية للطفل IMCI لمرافق مديرية العدين الصحية",
+  "start_url": ".",
+  "scope": ".",
   "display": "standalone",
   "background_color": "#2c5282",
   "theme_color": "#2c5282",
   "orientation": "portrait",
+  "lang": "ar",
   "icons": [
     {
       "src": "icon192.png",
